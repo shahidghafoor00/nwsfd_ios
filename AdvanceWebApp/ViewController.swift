@@ -14,7 +14,7 @@ import SafariServices
 
 class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate {
 
-    var activityIndicatorView: ActivityIndicatorView!
+    @IBOutlet weak var laodingView: UIActivityIndicatorView!
     @IBOutlet weak var webView: WKWebView!
     
     override func viewDidLoad() {
@@ -38,18 +38,13 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate {
 
     func webView(_ webView: WKWebView,
 didStartProvisionalNavigation navigation: WKNavigation!) {
-    
-        //         add loading view to the main view
-        self.activityIndicatorView = ActivityIndicatorView(title: "Please wait...", center: self.view.center)
-        self.view.addSubview(self.activityIndicatorView.getViewActivityIndicator())
-        self.activityIndicatorView.startAnimating()
-        
         print("provision nev ..receiving.....")
+        laodingView.isHidden = false
         
     }
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        self.activityIndicatorView.stopAnimating()
         print("finish..loading")
+        laodingView.isHidden = true
     }
     
     

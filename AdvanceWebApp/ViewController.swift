@@ -12,13 +12,28 @@ import Foundation
 import SystemConfiguration
 import SafariServices
 
-class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate {
+import GoogleMobileAds
 
+
+class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADBannerViewDelegate {
+
+    let source: String = "javascript:(function() {document.getElementsByClassName('banner sidebar')[0].style.display='none';})()";
+    
+    
     @IBOutlet weak var laodingView: UIActivityIndicatorView!
     @IBOutlet weak var webView: WKWebView!
+    var bannerView: GADBannerView!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        bannerView = GADBannerView(adSize: kGADAdSizeBanner)
+        addBannerViewToView(bannerView)
+        bannerView.adUnitID = "ca-app-pub-6812853586050394/9131687702"
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
+        bannerView.delegate = self
         
         if isInternetAvailable() {
             // webview navigation
@@ -27,6 +42,8 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate {
             webView.scrollView.bounces = true
             let myURL = URL(string:"https://nwsfd.com/")
             let myRequest = URLRequest(url: myURL!)
+            let script: WKUserScript = WKUserScript(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+            webView.configuration.userContentController.addUserScript(script)
             webView.load(myRequest)
             // swipe left or right for going back or forward
             webView.allowsBackForwardNavigationGestures = true
@@ -36,14 +53,37 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate {
         
     }
 
+    func addBannerViewToView(_ bannerView: GADBannerView) {
+      bannerView.translatesAutoresizingMaskIntoConstraints = false
+      view.addSubview(bannerView)
+      view.addConstraints(
+        [NSLayoutConstraint(item: bannerView,
+                            attribute: .bottom,
+                            relatedBy: .equal,
+                            toItem: bottomLayoutGuide,
+                            attribute: .top,
+                            multiplier: 1,
+                            constant: 0),
+         NSLayoutConstraint(item: bannerView,
+                            attribute: .centerX,
+                            relatedBy: .equal,
+                            toItem: view,
+                            attribute: .centerX,
+                            multiplier: 1,
+                            constant: 0)
+        ])
+     }
+    
     func webView(_ webView: WKWebView,
 didStartProvisionalNavigation navigation: WKNavigation!) {
         print("provision nev ..receiving.....")
+        webView.evaluateJavaScript(source, completionHandler: nil)
         laodingView.isHidden = false
         
     }
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("finish..loading")
+        webView.evaluateJavaScript(source, completionHandler: nil)
         laodingView.isHidden = true
     }
     

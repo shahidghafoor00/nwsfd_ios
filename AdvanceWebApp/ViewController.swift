@@ -15,14 +15,16 @@ import SafariServices
 import GoogleMobileAds
 
 
-class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADBannerViewDelegate {
+class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADBannerViewDelegate, GADFullScreenContentDelegate {
 
     let source: String = "javascript:(function() {document.getElementsByClassName('banner sidebar')[0].style.display='none';})()";
     
     
     @IBOutlet weak var laodingView: UIActivityIndicatorView!
     @IBOutlet weak var webView: WKWebView!
+    
     var bannerView: GADBannerView!
+    private var interstitial: GADInterstitialAd?
 
     
     override func viewDidLoad() {
@@ -30,10 +32,22 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADB
         
         bannerView = GADBannerView(adSize: kGADAdSizeBanner)
         addBannerViewToView(bannerView)
-        bannerView.adUnitID = "ca-app-pub-6812853586050394/9131687702"
+        bannerView.adUnitID = "ca-app-pub-6812853586050394/9126435384"
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
         bannerView.delegate = self
+        
+        let request = GADRequest()
+            GADInterstitialAd.load(withAdUnitID:"ca-app-pub-6812853586050394/9131687702",
+                                        request: request,
+                              completionHandler: { [self] ad, error in
+                                if let error = error {
+                                  print("Failed to load interstitial ad with error: \(error.localizedDescription)")
+                                  return
+                                }
+                                interstitial = ad
+                              }
+            )
         
         if isInternetAvailable() {
             // webview navigation
@@ -85,8 +99,16 @@ didStartProvisionalNavigation navigation: WKNavigation!) {
         print("finish..loading")
         webView.evaluateJavaScript(source, completionHandler: nil)
         laodingView.isHidden = true
+        if interstitial != nil {
+            interstitial?.present(fromRootViewController: self)
+          } else {
+            print("Ad wasn't ready")
+          }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        print("On Resume")
+    }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
             if navigationAction.navigationType == .linkActivated  {
@@ -101,7 +123,6 @@ didStartProvisionalNavigation navigation: WKNavigation!) {
                     decisionHandler(.allow)
                 }
             } else {
-                print("not a user click")
                 decisionHandler(.allow)
             }
         }
@@ -139,5 +160,21 @@ didStartProvisionalNavigation navigation: WKNavigation!) {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         dismiss(animated: true)
     }
+    
+    /// Tells the delegate that the ad failed to present full screen content.
+    func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
+      print("Ad did fail to present full screen content.")
+    }
+
+    /// Tells the delegate that the ad presented full screen content.
+    func adDidPresentFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+      print("Ad did present full screen content.")
+    }
+
+    /// Tells the delegate that the ad dismissed full screen content.
+    func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+      print("Ad did dismiss full screen content.")
+    }
+    
 }
 

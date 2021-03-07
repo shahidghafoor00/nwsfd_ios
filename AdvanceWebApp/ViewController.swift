@@ -17,7 +17,7 @@ import GoogleMobileAds
 
 class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADBannerViewDelegate, GADFullScreenContentDelegate {
 
-    let source: String = "javascript:(function() {document.getElementsByClassName('banner sidebar')[0].style.display='none';})()";
+    let source: String = "javascript:(function() {document.getElementsByClassName('banner sidebar')[0].style.display='none';})(); javascript:(function() {document.getElementsByClassName('col-sm-3')[0].style.display='none';})();javascript:(function() {document.getElementsByClassName('mobile-ad-banner')[0].style.display='none';})()";
     
     
     @IBOutlet weak var laodingView: UIActivityIndicatorView!
@@ -61,6 +61,7 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADB
             webView.load(myRequest)
             // swipe left or right for going back or forward
             webView.allowsBackForwardNavigationGestures = true
+            webView.evaluateJavaScript(source, completionHandler: nil)
         } else {
             showAlert()
         }
@@ -99,17 +100,24 @@ didStartProvisionalNavigation navigation: WKNavigation!) {
         print("finish..loading")
         webView.evaluateJavaScript(source, completionHandler: nil)
         laodingView.isHidden = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         if interstitial != nil {
             interstitial?.present(fromRootViewController: self)
           } else {
             print("Ad wasn't ready")
           }
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        print("On Resume")
+
+    override func viewWillDisappear(_ animated: Bool) {
+        if interstitial != nil {
+            interstitial?.present(fromRootViewController: self)
+          } else {
+            print("Ad wasn't ready")
+          }
     }
-    
+
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
             if navigationAction.navigationType == .linkActivated  {
                 if let url = navigationAction.request.url,

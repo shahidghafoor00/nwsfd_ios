@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8FB4B645F722801F0BAD9F3D /* Pods_AdvanceWebApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 921C877E4B313D5E3947D105 /* Pods_AdvanceWebApp.framework */; };
 		C01B20D3227EADE5000D3A22 /* ProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01B20D2227EADE5000D3A22 /* ProgressHUD.swift */; };
 		C0AB7E4922797E1B0016EE5C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AB7E4822797E1B0016EE5C /* AppDelegate.swift */; };
 		C0AB7E4B22797E1B0016EE5C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AB7E4A22797E1B0016EE5C /* ViewController.swift */; };
@@ -15,12 +14,12 @@
 		C0AB7E5022797E1C0016EE5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0AB7E4F22797E1C0016EE5C /* Assets.xcassets */; };
 		C0AB7E5322797E1C0016EE5C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0AB7E5122797E1C0016EE5C /* LaunchScreen.storyboard */; };
 		C0AB7E5C227983710016EE5C /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0AB7E5B227983710016EE5C /* WebKit.framework */; };
+		DB9E76776602EC4FDCECF44C /* Pods_AdvanceWebApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4134451C8648DF8551EE1C09 /* Pods_AdvanceWebApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		019107DA4BF30EA72DF190EE /* Pods-AdvanceWebApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdvanceWebApp.release.xcconfig"; path = "Target Support Files/Pods-AdvanceWebApp/Pods-AdvanceWebApp.release.xcconfig"; sourceTree = "<group>"; };
-		3FCEEDC952FF93428DFC5E80 /* Pods-AdvanceWebApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdvanceWebApp.debug.xcconfig"; path = "Target Support Files/Pods-AdvanceWebApp/Pods-AdvanceWebApp.debug.xcconfig"; sourceTree = "<group>"; };
-		921C877E4B313D5E3947D105 /* Pods_AdvanceWebApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AdvanceWebApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		150F4A352D547CBB2E230DAD /* Pods-AdvanceWebApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdvanceWebApp.release.xcconfig"; path = "Target Support Files/Pods-AdvanceWebApp/Pods-AdvanceWebApp.release.xcconfig"; sourceTree = "<group>"; };
+		4134451C8648DF8551EE1C09 /* Pods_AdvanceWebApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AdvanceWebApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C01B20D2227EADE5000D3A22 /* ProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressHUD.swift; sourceTree = "<group>"; };
 		C0AB7E4522797E1B0016EE5C /* AdvanceWebApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdvanceWebApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0AB7E4822797E1B0016EE5C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -30,6 +29,7 @@
 		C0AB7E5222797E1C0016EE5C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C0AB7E5422797E1C0016EE5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0AB7E5B227983710016EE5C /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		FF658A2FEAFBA0798220088E /* Pods-AdvanceWebApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AdvanceWebApp.debug.xcconfig"; path = "Target Support Files/Pods-AdvanceWebApp/Pods-AdvanceWebApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,18 +38,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0AB7E5C227983710016EE5C /* WebKit.framework in Frameworks */,
-				8FB4B645F722801F0BAD9F3D /* Pods_AdvanceWebApp.framework in Frameworks */,
+				DB9E76776602EC4FDCECF44C /* Pods_AdvanceWebApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1BEF7D7EE210A6AA6350EA3F /* Pods */ = {
+		0FD3C1221DBAF44E254F2365 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3FCEEDC952FF93428DFC5E80 /* Pods-AdvanceWebApp.debug.xcconfig */,
-				019107DA4BF30EA72DF190EE /* Pods-AdvanceWebApp.release.xcconfig */,
+				FF658A2FEAFBA0798220088E /* Pods-AdvanceWebApp.debug.xcconfig */,
+				150F4A352D547CBB2E230DAD /* Pods-AdvanceWebApp.release.xcconfig */,
 			);
 			name = Pods;
 			path = Pods;
@@ -61,7 +61,7 @@
 				C0AB7E4722797E1B0016EE5C /* AdvanceWebApp */,
 				C0AB7E4622797E1B0016EE5C /* Products */,
 				C0AB7E5A227983710016EE5C /* Frameworks */,
-				1BEF7D7EE210A6AA6350EA3F /* Pods */,
+				0FD3C1221DBAF44E254F2365 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -91,7 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				C0AB7E5B227983710016EE5C /* WebKit.framework */,
-				921C877E4B313D5E3947D105 /* Pods_AdvanceWebApp.framework */,
+				4134451C8648DF8551EE1C09 /* Pods_AdvanceWebApp.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -103,12 +103,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C0AB7E5722797E1C0016EE5C /* Build configuration list for PBXNativeTarget "AdvanceWebApp" */;
 			buildPhases = (
-				C7955D95986A6634F57D3EBB /* [CP] Check Pods Manifest.lock */,
+				DE86514A990AB9209BD79831 /* [CP] Check Pods Manifest.lock */,
 				C0AB7E4122797E1B0016EE5C /* Sources */,
 				C0AB7E4222797E1B0016EE5C /* Frameworks */,
 				C0AB7E4322797E1B0016EE5C /* Resources */,
-				9D6B7D7DACEEC7BDA5745E76 /* [CP] Embed Pods Frameworks */,
-				7B4E486D68994826C2B0A386 /* [CP] Copy Pods Resources */,
+				47C9274E92701E00AFD87287 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -166,24 +165,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		7B4E486D68994826C2B0A386 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AdvanceWebApp/Pods-AdvanceWebApp-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AdvanceWebApp/Pods-AdvanceWebApp-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AdvanceWebApp/Pods-AdvanceWebApp-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9D6B7D7DACEEC7BDA5745E76 /* [CP] Embed Pods Frameworks */ = {
+		47C9274E92701E00AFD87287 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -200,7 +182,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AdvanceWebApp/Pods-AdvanceWebApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C7955D95986A6634F57D3EBB /* [CP] Check Pods Manifest.lock */ = {
+		DE86514A990AB9209BD79831 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -375,7 +357,7 @@
 		};
 		C0AB7E5822797E1C0016EE5C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3FCEEDC952FF93428DFC5E80 /* Pods-AdvanceWebApp.debug.xcconfig */;
+			baseConfigurationReference = FF658A2FEAFBA0798220088E /* Pods-AdvanceWebApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -394,7 +376,7 @@
 		};
 		C0AB7E5922797E1C0016EE5C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 019107DA4BF30EA72DF190EE /* Pods-AdvanceWebApp.release.xcconfig */;
+			baseConfigurationReference = 150F4A352D547CBB2E230DAD /* Pods-AdvanceWebApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

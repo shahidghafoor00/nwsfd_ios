@@ -108,6 +108,7 @@
 				C0AB7E4222797E1B0016EE5C /* Frameworks */,
 				C0AB7E4322797E1B0016EE5C /* Resources */,
 				9D6B7D7DACEEC7BDA5745E76 /* [CP] Embed Pods Frameworks */,
+				7B4E486D68994826C2B0A386 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -165,6 +166,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		7B4E486D68994826C2B0A386 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AdvanceWebApp/Pods-AdvanceWebApp-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AdvanceWebApp/Pods-AdvanceWebApp-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AdvanceWebApp/Pods-AdvanceWebApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		9D6B7D7DACEEC7BDA5745E76 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

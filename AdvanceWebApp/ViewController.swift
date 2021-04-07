@@ -11,22 +11,27 @@ import WebKit
 import Foundation
 import SystemConfiguration
 import SafariServices
+import AppLovinSDK
 
 import GoogleMobileAds
 
 
 class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADBannerViewDelegate, GADFullScreenContentDelegate {
 
-    let source: String = "javascript:(function() {document.getElementsByClassName('banner sidebar')[0].style.display='none';})(); javascript:(function() {document.getElementsByClassName('col-sm-3')[0].style.display='none';})();javascript:(function() {document.getElementsByClassName('mobile-ad-banner')[0].style.display='none';})()";
-    
+    let source: String = "javascript:(function() {document.getElementsByClassName('banner sidebar')[0].style.display='none';})(); javascript:(function() {document.getElementsByClassName('col-sm-3')[0].style.visibility='hidden';})();javascript:(function() {document.getElementsByClassName('mobile-ad-banner')[0].style.display='none';})();";
     
     @IBOutlet weak var laodingView: UIActivityIndicatorView!
     @IBOutlet weak var webView: WKWebView!
     
+    // Admob
     var bannerView: GADBannerView!
     private var interstitial: GADInterstitialAd?
-
     
+    // Applovin
+    private let kBannerHeight: CGFloat = 50
+    private let adView = ALAdView(size: .banner)
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -62,10 +67,17 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADB
             // swipe left or right for going back or forward
             webView.allowsBackForwardNavigationGestures = true
             webView.evaluateJavaScript(source, completionHandler: nil)
+            let source: String = "var meta = document.createElement('meta');" +
+                        "meta.name = 'viewport';" +
+                        "meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';" +
+                        "var head = document.getElementsByTagName('head')[0];" + "head.appendChild(meta);";
+            let zoomScript: WKUserScript = WKUserScript(source: source, injectionTime: .atDocumentEnd,forMainFrameOnly: true)
+            webView.configuration.userContentController.addUserScript(zoomScript)
         } else {
             showAlert()
         }
         
+        ALPrivacySettings.setHasUserConsent(true)
     }
 
     func addBannerViewToView(_ bannerView: GADBannerView) {
@@ -91,15 +103,14 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADB
     
     func webView(_ webView: WKWebView,
 didStartProvisionalNavigation navigation: WKNavigation!) {
+        
         print("provision nev ..receiving.....")
         webView.evaluateJavaScript(source, completionHandler: nil)
-        laodingView.isHidden = false
-        
     }
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        laodingView.isHidden = true
         print("finish..loading")
         webView.evaluateJavaScript(source, completionHandler: nil)
-        laodingView.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {

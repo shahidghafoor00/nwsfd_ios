@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleMobileAds
+import AppLovinSDK
 
 
 @UIApplicationMain
@@ -19,6 +20,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         GADMobileAds.sharedInstance().start(completionHandler: nil)
+
+        // Initialize the AppLovin SDK
+        ALSdk.shared()!.mediationProvider = ALMediationProviderMAX
+        ALSdk.shared()!.initializeSdk(completionHandler: { configuration in
+            // AppLovin SDK is initialized, start loading ads now or later if ad gate is reached
+        })
+        
         
         return true
     }

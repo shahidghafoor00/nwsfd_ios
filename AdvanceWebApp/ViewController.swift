@@ -11,7 +11,6 @@ import WebKit
 import Foundation
 import SystemConfiguration
 import SafariServices
-import AppLovinSDK
 
 import GoogleMobileAds
 
@@ -27,11 +26,7 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADB
     var bannerView: GADBannerView!
     private var interstitial: GADInterstitialAd?
     
-    // Applovin
-    private let kBannerHeight: CGFloat = 50
-    private let adView = ALAdView(size: .banner)
-
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -76,8 +71,6 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADB
         } else {
             showAlert()
         }
-        
-        ALPrivacySettings.setHasUserConsent(true)
     }
 
     func addBannerViewToView(_ bannerView: GADBannerView) {

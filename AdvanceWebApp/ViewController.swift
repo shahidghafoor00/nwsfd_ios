@@ -16,7 +16,7 @@ import GoogleMobileAds
 
 
 class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADBannerViewDelegate, GADFullScreenContentDelegate {
-
+    
     let source: String = "javascript:(function() {document.getElementsByClassName('follow-us-links')[0].style.display='none';})();javascript:(function() {document.getElementsByClassName('mobile-ad-banner')[0].style.display='none';})();javascript:(function() {document.getElementsByClassName('col-sm-3')[0].style.display='none';})();";
     
     @IBOutlet weak var laodingView: UIActivityIndicatorView!
@@ -38,16 +38,16 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADB
         bannerView.delegate = self
         
         let request = GADRequest()
-            GADInterstitialAd.load(withAdUnitID:"ca-app-pub-6812853586050394/9131687702",
-                                        request: request,
-                              completionHandler: { [self] ad, error in
+        GADInterstitialAd.load(withAdUnitID:"ca-app-pub-6812853586050394/9131687702",
+                               request: request,
+                               completionHandler: { [self] ad, error in
                                 if let error = error {
-                                  print("Failed to load interstitial ad with error: \(error.localizedDescription)")
-                                  return
+                                    print("Failed to load interstitial ad with error: \(error.localizedDescription)")
+                                    return
                                 }
                                 interstitial = ad
-                              }
-            )
+                               }
+        )
         
         if isInternetAvailable() {
             // webview navigation
@@ -63,9 +63,9 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADB
             webView.allowsBackForwardNavigationGestures = true
             webView.evaluateJavaScript(source, completionHandler: nil)
             let source: String = "var meta = document.createElement('meta');" +
-                        "meta.name = 'viewport';" +
-                        "meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';" +
-                        "var head = document.getElementsByTagName('head')[0];" + "head.appendChild(meta);";
+                "meta.name = 'viewport';" +
+                "meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';" +
+                "var head = document.getElementsByTagName('head')[0];" + "head.appendChild(meta);";
             let zoomScript: WKUserScript = WKUserScript(source: source, injectionTime: .atDocumentEnd,forMainFrameOnly: true)
             webView.configuration.userContentController.addUserScript(zoomScript)
             let refreshControl = UIRefreshControl()
@@ -88,28 +88,28 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADB
     }
     
     func addBannerViewToView(_ bannerView: GADBannerView) {
-      bannerView.translatesAutoresizingMaskIntoConstraints = false
-      view.addSubview(bannerView)
-      view.addConstraints(
-        [NSLayoutConstraint(item: bannerView,
-                            attribute: .bottom,
-                            relatedBy: .equal,
-                            toItem: bottomLayoutGuide,
-                            attribute: .top,
-                            multiplier: 1,
-                            constant: 0),
-         NSLayoutConstraint(item: bannerView,
-                            attribute: .centerX,
-                            relatedBy: .equal,
-                            toItem: view,
-                            attribute: .centerX,
-                            multiplier: 1,
-                            constant: 0)
-        ])
-     }
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        view.addConstraints(
+            [NSLayoutConstraint(item: bannerView,
+                                attribute: .bottom,
+                                relatedBy: .equal,
+                                toItem: bottomLayoutGuide,
+                                attribute: .top,
+                                multiplier: 1,
+                                constant: 0),
+             NSLayoutConstraint(item: bannerView,
+                                attribute: .centerX,
+                                relatedBy: .equal,
+                                toItem: view,
+                                attribute: .centerX,
+                                multiplier: 1,
+                                constant: 0)
+            ])
+    }
     
     func webView(_ webView: WKWebView,
-didStartProvisionalNavigation navigation: WKNavigation!) {
+                 didStartProvisionalNavigation navigation: WKNavigation!) {
         
         print("provision nev ..receiving.....")
         webView.evaluateJavaScript(source, completionHandler: nil)
@@ -123,35 +123,35 @@ didStartProvisionalNavigation navigation: WKNavigation!) {
     override func viewWillAppear(_ animated: Bool) {
         if interstitial != nil {
             interstitial?.present(fromRootViewController: self)
-          } else {
+        } else {
             print("Ad wasn't ready")
-          }
+        }
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         if interstitial != nil {
             interstitial?.present(fromRootViewController: self)
-          } else {
+        } else {
             print("Ad wasn't ready")
-          }
+        }
     }
-
+    
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-            if navigationAction.navigationType == .linkActivated  {
-                if let url = navigationAction.request.url,
-                    let host = url.host, !host.hasPrefix("nwsfd.com"),
-                    UIApplication.shared.canOpenURL(url) {
-                    let safariVC = SFSafariViewController(url: url)
-                            present(safariVC, animated: true, completion: nil)
-                    decisionHandler(.cancel)
-                } else {
-                    print("Open it locally")
-                    decisionHandler(.allow)
-                }
+        if navigationAction.navigationType == .linkActivated  {
+            if let url = navigationAction.request.url,
+               let host = url.host, !host.hasPrefix("nwsfd.com"),
+               UIApplication.shared.canOpenURL(url) {
+                let safariVC = SFSafariViewController(url: url)
+                present(safariVC, animated: true, completion: nil)
+                decisionHandler(.cancel)
             } else {
+                print("Open it locally")
                 decisionHandler(.allow)
             }
+        } else {
+            decisionHandler(.allow)
         }
+    }
     
     func isInternetAvailable() -> Bool
     {
@@ -189,17 +189,17 @@ didStartProvisionalNavigation navigation: WKNavigation!) {
     
     /// Tells the delegate that the ad failed to present full screen content.
     func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
-      print("Ad did fail to present full screen content.")
+        print("Ad did fail to present full screen content.")
     }
-
+    
     /// Tells the delegate that the ad presented full screen content.
     func adDidPresentFullScreenContent(_ ad: GADFullScreenPresentingAd) {
-      print("Ad did present full screen content.")
+        print("Ad did present full screen content.")
     }
-
+    
     /// Tells the delegate that the ad dismissed full screen content.
     func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
-      print("Ad did dismiss full screen content.")
+        print("Ad did dismiss full screen content.")
     }
     
 }

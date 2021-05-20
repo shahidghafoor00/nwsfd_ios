@@ -17,7 +17,7 @@ import GoogleMobileAds
 
 class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADBannerViewDelegate, GADFullScreenContentDelegate {
 
-    let source: String = "javascript:(function() {document.getElementsByClassName('banner sidebar')[0].style.display='none';})(); javascript:(function() {document.getElementsByClassName('col-sm-3')[0].style.visibility='hidden';})();javascript:(function() {document.getElementsByClassName('mobile-ad-banner')[0].style.display='none';})();";
+    let source: String = "javascript:(function() {document.getElementsByClassName('follow-us-links')[0].style.display='none';})();javascript:(function() {document.getElementsByClassName('mobile-ad-banner')[0].style.display='none';})();javascript:(function() {document.getElementsByClassName('col-sm-3')[0].style.display='none';})();";
     
     @IBOutlet weak var laodingView: UIActivityIndicatorView!
     @IBOutlet weak var webView: WKWebView!
@@ -25,7 +25,7 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADB
     // Admob
     var bannerView: GADBannerView!
     private var interstitial: GADInterstitialAd?
-    
+    var webURL:String = "https://nwsfd.com/"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +54,7 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADB
             webView.navigationDelegate = self
             webView.uiDelegate = self
             webView.scrollView.bounces = true
-            let myURL = URL(string:"https://nwsfd.com/")
+            let myURL = URL(string:webURL)
             let myRequest = URLRequest(url: myURL!)
             let script: WKUserScript = WKUserScript(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
             webView.configuration.userContentController.addUserScript(script)
@@ -68,11 +68,25 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADB
                         "var head = document.getElementsByTagName('head')[0];" + "head.appendChild(meta);";
             let zoomScript: WKUserScript = WKUserScript(source: source, injectionTime: .atDocumentEnd,forMainFrameOnly: true)
             webView.configuration.userContentController.addUserScript(zoomScript)
+            let refreshControl = UIRefreshControl()
+            refreshControl.addTarget(self, action: #selector(refreshWebView(_:)), for: UIControl.Event.valueChanged)
+            webView.scrollView.addSubview(refreshControl)
+            webView.scrollView.bounces = true
         } else {
             showAlert()
         }
     }
-
+    
+    @objc
+    func refreshWebView(_ sender: UIRefreshControl) {
+        webView?.reload()
+        sender.endRefreshing()
+    }
+    
+    override func applicationFinishedRestoringState() {
+        print("Restore")
+    }
+    
     func addBannerViewToView(_ bannerView: GADBannerView) {
       bannerView.translatesAutoresizingMaskIntoConstraints = false
       view.addSubview(bannerView)

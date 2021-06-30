@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleMobileAds
+import Flurry_iOS_SDK
 
 
 @UIApplicationMain
@@ -17,6 +18,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        let builder = FlurrySessionBuilder.init()
+                                          .withAppVersion("1.0")
+                                          .withLogLevel(FlurryLogLevelAll)
+                                          .withCrashReporting(true)
+                                          .withSessionContinueSeconds(10)
+
+        // Replace YOUR_API_KEY with the api key in the downloaded package
+        Flurry.startSession("YOUR_API_KEY", with: builder)
         
         GADMobileAds.sharedInstance().start(completionHandler: nil)
         return true

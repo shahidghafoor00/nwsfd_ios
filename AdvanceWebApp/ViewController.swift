@@ -17,6 +17,7 @@ import GoogleMobileAds
 
 class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADBannerViewDelegate, GADFullScreenContentDelegate {
     
+    
     let source: String = "javascript:(function() {document.getElementsByClassName('follow-us-links')[0].style.display='none';})();javascript:(function() {document.getElementsByClassName('mobile-ad-banner')[0].style.display='none';})();javascript:(function() {document.getElementsByClassName('col-sm-3')[0].style.display='none';})();";
     
     @IBOutlet weak var laodingView: UIActivityIndicatorView!

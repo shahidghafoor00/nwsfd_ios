@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                           .withSessionContinueSeconds(10)
 
         // Replace YOUR_API_KEY with the api key in the downloaded package
-        Flurry.startSession("YOUR_API_KEY", with: builder)
+        Flurry.startSession("P5Q3RJKX9NQFJ89MQCS2", with: builder)
         
         GADMobileAds.sharedInstance().start(completionHandler: nil)
         return true

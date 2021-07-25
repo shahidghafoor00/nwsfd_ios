@@ -15,7 +15,7 @@ import SafariServices
 import GoogleMobileAds
 
 
-class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADBannerViewDelegate, GADFullScreenContentDelegate {
+class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADBannerViewDelegate, GADFullScreenContentDelegate, SFSafariViewControllerDelegate {
     
     
     let source: String = "javascript:(function() {document.getElementsByClassName('follow-us-links')[0].style.display='none';})();javascript:(function() {document.getElementsByClassName('mobile-ad-banner')[0].style.display='none';})();javascript:(function() {document.getElementsByClassName('col-sm-3')[0].style.display='none';})();";
@@ -38,17 +38,7 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADB
         bannerView.load(GADRequest())
         bannerView.delegate = self
         
-        let request = GADRequest()
-        GADInterstitialAd.load(withAdUnitID:"ca-app-pub-6812853586050394/9131687702",
-                               request: request,
-                               completionHandler: { [self] ad, error in
-                                if let error = error {
-                                    print("Failed to load interstitial ad with error: \(error.localizedDescription)")
-                                    return
-                                }
-                                interstitial = ad
-                               }
-        )
+        self.requestAd()
         
         if isInternetAvailable() {
             // webview navigation
@@ -122,19 +112,11 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADB
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if interstitial != nil {
-            interstitial?.present(fromRootViewController: self)
-        } else {
-            print("Ad wasn't ready")
-        }
+        super.viewWillAppear(animated)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        if interstitial != nil {
-            interstitial?.present(fromRootViewController: self)
-        } else {
-            print("Ad wasn't ready")
-        }
+        super.viewWillDisappear(animated)
     }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
@@ -143,6 +125,7 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADB
                let host = url.host, !host.hasPrefix("nwsfd.com"),
                UIApplication.shared.canOpenURL(url) {
                 let safariVC = SFSafariViewController(url: url)
+                safariVC.delegate = self
                 present(safariVC, animated: true, completion: nil)
                 decisionHandler(.cancel)
             } else {
@@ -185,12 +168,15 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADB
     }
     
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        dismiss(animated: true)
+        controller.dismiss(animated: true) {
+            self.showAd()
+        }
     }
     
     /// Tells the delegate that the ad failed to present full screen content.
     func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
         print("Ad did fail to present full screen content.")
+        self.requestAd()
     }
     
     /// Tells the delegate that the ad presented full screen content.
@@ -201,7 +187,30 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADB
     /// Tells the delegate that the ad dismissed full screen content.
     func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
         print("Ad did dismiss full screen content.")
+        self.requestAd()
     }
     
+    func requestAd() {
+        let request = GADRequest()
+        GADInterstitialAd.load(withAdUnitID:"ca-app-pub-6812853586050394/9131687702",
+                               request: request,
+                               completionHandler: { [self] ad, error in
+                                if let error = error {
+                                    print("Failed to load interstitial ad with error: \(error.localizedDescription)")
+                                    return
+                                }
+                                interstitial = ad
+                                interstitial?.fullScreenContentDelegate = self
+                               }
+        )
+    }
+    
+    func showAd() {
+        if interstitial != nil {
+            interstitial?.present(fromRootViewController: self)
+        } else {
+            print("Ad wasn't ready")
+        }
+    }
 }
 

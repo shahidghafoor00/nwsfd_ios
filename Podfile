@@ -8,4 +8,5 @@ target 'AdvanceWebApp' do
   # Pods for AdvanceWebApp
 pod 'Google-Mobile-Ads-SDK'
   pod 'Flurry-iOS-SDK/FlurrySDK'
+  pod 'SwiftyStoreKit'
 end

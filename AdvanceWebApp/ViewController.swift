@@ -22,6 +22,7 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADB
     
     @IBOutlet weak var laodingView: UIActivityIndicatorView!
     @IBOutlet weak var webView: WKWebView!
+    @IBOutlet weak var btnSubscribe: UIBarButtonItem!
     
     // Admob
     var bannerView: GADBannerView!
@@ -211,6 +212,32 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADB
         } else {
             print("Ad wasn't ready")
         }
+    }
+    
+    
+    @IBAction func btnSubscribeTapped(_ sender: UIBarButtonItem) {
+        
+        IAPManager.shared.getProducts { (result) in
+            DispatchQueue.main.async {
+                
+                
+                switch result {
+                case .success(let products):
+                    for product in products {
+                        print(product.localizedTitle)
+                        print(product.description)
+                        print(product.price)
+                    }
+                case .failure(let error):
+                
+                    print(error.localizedDescription)
+                }
+            }
+        }
+        
+        return
+        let controller = SubscriptionViewController.shared()
+        self.navigationController?.pushViewController(controller, animated: true)
     }
 }
 

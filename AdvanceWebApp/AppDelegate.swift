@@ -9,7 +9,7 @@
 import UIKit
 import GoogleMobileAds
 import Flurry_iOS_SDK
-
+import SwiftyStoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,6 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Flurry.startSession("P5Q3RJKX9NQFJ89MQCS2", with: builder)
         
         GADMobileAds.sharedInstance().start(completionHandler: nil)
+        
+        self.checkInAppPurchase()
         return true
     }
 
@@ -54,6 +56,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
+    func checkInAppPurchase() {
+        SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
+                for purchase in purchases {
+                    switch purchase.transaction.transactionState {
+                    case .purchased, .restored:
+                        if purchase.needsFinishTransaction {
+                            // Deliver content from server, then:
+                            SwiftyStoreKit.finishTransaction(purchase.transaction)
+                        }
+                        // Unlock content
+                    case .failed, .purchasing, .deferred:
+                        break // do nothing
+                    @unknown default:
+                        break
+                    }
+                }
+            }
+    }
 }
 

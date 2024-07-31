@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "splash.png",
+      "filename" : "Back Outline.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "Back Outline@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "Back Outline@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

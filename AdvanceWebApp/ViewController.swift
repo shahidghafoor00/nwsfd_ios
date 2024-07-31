@@ -21,14 +21,22 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADB
     
     @IBOutlet weak var laodingView: UIActivityIndicatorView!
     @IBOutlet weak var webView: WKWebView!
+    @IBOutlet var backButton: UIButton!
     
     // Admob
     var bannerView: GADBannerView!
     private var interstitial: GADInterstitialAd?
     var webURL:String = "https://nwsfd.com/"
+    var canGoBack = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        backButton.isHidden = true
+        backButton.layer.cornerRadius =  10
+        backButton.layer.borderWidth = 0.5
+        backButton.layer.borderColor = UIColor.systemGray.cgColor
+        backButton.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         
         bannerView = GADBannerView(adSize: kGADAdSizeBanner)
         addBannerViewToView(bannerView)
@@ -77,6 +85,11 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADB
         }
     }
     
+    
+    @objc func goBack() {
+        self.webView.goBack()
+    }
+    
     @objc
     func refreshWebView(_ sender: UIRefreshControl) {
         webView?.reload()
@@ -113,11 +126,22 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADB
         
         print("provision nev ..receiving.....")
         webView.evaluateJavaScript(source, completionHandler: nil)
+        backButton.isHidden = true
     }
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         laodingView.isHidden = true
         print("finish..loading")
         webView.evaluateJavaScript(source, completionHandler: nil)
+        print(webView.canGoBack)
+        canGoBack = webView.canGoBack
+        
+        if canGoBack {
+            print("show back button")
+            backButton.isHidden = false
+        } else {
+            print("Hide back button")
+            backButton.isHidden = true
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -141,7 +165,9 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, GADB
             if let url = navigationAction.request.url,
                let host = url.host, !host.hasPrefix("nwsfd.com"),
                UIApplication.shared.canOpenURL(url) {
-                let safariVC = SFSafariViewController(url: url)
+                let config = SFSafariViewController.Configuration()
+                config.entersReaderIfAvailable = true
+                let safariVC = SFSafariViewController(url: url, configuration: config)
                 present(safariVC, animated: true, completion: nil)
                 decisionHandler(.cancel)
             } else {

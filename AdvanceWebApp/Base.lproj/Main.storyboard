@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fxv-Sk-5Z0">
-                                <rect key="frame" x="0.0" y="44" width="428" height="848"/>
+                                <rect key="frame" x="0.0" y="47" width="428" height="845"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -27,19 +28,31 @@
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="6Dh-zt-iAP">
                                 <rect key="frame" x="195.66666666666666" y="444.66666666666669" width="37" height="37"/>
                             </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nGr-ZD-Yn2">
+                                <rect key="frame" x="10" y="132" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="Lpb-F1-qvZ"/>
+                                    <constraint firstAttribute="height" constant="50" id="N2s-oz-BUl"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="chevron.left.circle" catalog="system" title=" "/>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" name="day-night"/>
                         <constraints>
                             <constraint firstItem="fxv-Sk-5Z0" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="EVx-sY-ob1"/>
                             <constraint firstItem="6Dh-zt-iAP" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="K1K-PR-hdT"/>
                             <constraint firstAttribute="trailing" secondItem="fxv-Sk-5Z0" secondAttribute="trailing" id="WKS-Uy-6GO"/>
+                            <constraint firstItem="nGr-ZD-Yn2" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="85" id="XXI-jQ-ZoJ"/>
+                            <constraint firstItem="nGr-ZD-Yn2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="Ykk-Lp-FYN"/>
                             <constraint firstItem="fxv-Sk-5Z0" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="oIK-AI-4Hv"/>
                             <constraint firstItem="fxv-Sk-5Z0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="oua-6d-2fg"/>
                             <constraint firstItem="6Dh-zt-iAP" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="sgc-Px-9Yc"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="nGr-ZD-Yn2" id="Xys-kb-h7E"/>
                         <outlet property="laodingView" destination="6Dh-zt-iAP" id="2ns-sz-OX5"/>
                         <outlet property="webView" destination="fxv-Sk-5Z0" id="zNb-If-JtC"/>
                     </connections>
@@ -49,4 +62,10 @@
             <point key="canvasLocation" x="135.98130841121494" y="112.09503239740822"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="chevron.left.circle" catalog="system" width="128" height="123"/>
+        <namedColor name="day-night">
+            <color red="0.99999994039535522" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>
